@@ -1,7 +1,7 @@
 package fr.iutvalence.java.morpion;
 
 import fr.iutvalence.java.morpion.controleurs.ControleurConsole;
-import fr.iutvalence.java.morpion.vues.graphique.VueGraphique;
+//import fr.iutvalence.java.morpion.vues.graphique.VueGraphique;
 
 /** Permet d'executer l'application.
  * 
@@ -20,7 +20,7 @@ public class Morpion
 		if ((args.length > 0) && args[0].equals("--gui"))
 		{
 			/* Attention : l'interface graphique n'est pas encore aboutie. */
-			new VueGraphique();
+			//new VueGraphique();
 		}
 		else
 		{
