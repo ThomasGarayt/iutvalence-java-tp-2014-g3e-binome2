@@ -7,10 +7,9 @@ import fr.iutvalence.java.morpion.modele.erreur.CoordonneesDejaPriseException;
 import fr.iutvalence.java.morpion.modele.erreur.MauvaiseCoordonneesException;
 import fr.iutvalence.java.morpion.modele.PlateauJeu;
 
-/** Modélisation du fonctionnement d'une partie.
+/** Fonctionnement d'une partie
  *
- * @author DELORME Loïc & BASSON Julien
- * @version 2.0.0
+ * @author CHAUVEAU Aristide - GARAYT Thomas
  */
 public class ControleurGraphique
 {
@@ -41,7 +40,7 @@ public class ControleurGraphique
         {
             this.plateau.estCoupValide(x, y);
             if (this.plateau.placerPion(this.joueurs.obtenirSignatureCourante(), x, y))
-            	JOptionPane.showMessageDialog(null, "Partie gagné !", "Fin de la partie.", JOptionPane.INFORMATION_MESSAGE);
+            	JOptionPane.showMessageDialog(null, "Partie gagn�e !", "Fin de la partie.", JOptionPane.INFORMATION_MESSAGE);
             this.joueurs.joueurSuivant();
             
             if (!(this.plateau.coupPossible()))

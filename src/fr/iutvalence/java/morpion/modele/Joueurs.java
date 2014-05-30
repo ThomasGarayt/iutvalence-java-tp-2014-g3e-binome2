@@ -16,7 +16,7 @@ public final class Joueurs
 	private final Joueur joueur2;
 
 	/** Joueur courant. */
-	private Joueur joueurCourant;
+	public Joueur joueurCourant;
 
 	/** Créer les deux joueurs de la partie en utilisant les noms spécifiés.
 	 * 

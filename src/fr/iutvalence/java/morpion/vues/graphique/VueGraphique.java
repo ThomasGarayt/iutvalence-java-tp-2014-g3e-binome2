@@ -1,12 +1,6 @@
 package fr.iutvalence.java.morpion.vues.graphique;
 
 import fr.iutvalence.java.morpion.controleurs.ControleurGraphique;
-import fr.iutvalence.java.morpion.vues.graphique.boutons.BoutonAProposDe;
-import fr.iutvalence.java.morpion.vues.graphique.boutons.BoutonHistoriqueDesScores;
-import fr.iutvalence.java.morpion.vues.graphique.boutons.BoutonJouer;
-import fr.iutvalence.java.morpion.vues.graphique.boutons.BoutonQuitter;
-import fr.iutvalence.java.morpion.vues.graphique.boutons.BoutonReglesDuJeu;
-import fr.iutvalence.java.morpion.vues.graphique.boutons.BoutonVersion;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,32 +14,21 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/** Modélisation d'une fenêtre graphique
+/** Vue graphique de l'application
  * 
- * @author DELORME Loïc & BASSON Julien
- * @version 1.0
- * */
+ * @author CHAUVEAU Aristide - GARAYT Thomas
+ *
+ */
 public class VueGraphique extends JFrame                                                                  
 {
-	/** Modélisation d'une case. */
+
 	private final class Case extends JButton implements ActionListener
 	{
-		/** Utilisé pour sérialiser. */
-		private static final long serialVersionUID = 1L;
 		
-		/** La coordonnée en x sur la grille. */
 		private final int x;
 		
-		/** La coordonnée en y sur la grille. */
 		private final int y;
 		
-		/**
-		 * Modélisation d'une case avec plusieurs paramètres.
-		 * 
-		 * @param nom Le nom de la case.
-		 * @param x La coordonnée en x sur la grille.
-		 * @param y La coordonnée en y sur la grille.
-		 */
 		public Case(String nom, int x, int y)
 		{
 			super(nom);
@@ -57,13 +40,10 @@ public class VueGraphique extends JFrame
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			VueGraphique.this.unControleur.placerPion(this.x, this.y);
-			this.mettreAJourLeBouton(VueGraphique.this.unControleur.obtenirSignatureJoueurCourant());
+			VueGraphique.this.controleurGraphique.placerPion(this.x, this.y);
+			this.mettreAJourLeBouton(VueGraphique.this.controleurGraphique.obtenirSignatureJoueurCourant());
 		}
 
-		/** Mettre à jour le bouton avec la singature du joueur.
-		 * 
-		 * @param symboleJoueurCourant Le symbole du joueur courant. */
 		private void mettreAJourLeBouton(String symboleJoueurCourant)
 		{
 			this.setText(symboleJoueurCourant);
@@ -71,100 +51,62 @@ public class VueGraphique extends JFrame
 		}
 	}
 
-	/** Utilisé pour serialiser. */
-	private static final long serialVersionUID = 1L;
 
-	/** Un objet qui contiendra toutes les informations à afficher */
-	public static final JPanel unTableau = new JPanel();
 
-	/** Définition de la barre de menu */
-	private JMenuBar barreDeMenu = new JMenuBar();
+	public static final JPanel tabBouton = new JPanel();
+
+	private JMenuBar menuPrincipal = new JMenuBar();
 					 
-	/** Premier menu principal : Partie */
-	private JMenu menu1 = new JMenu("Partie");
+	private JMenu menu1 = new JMenu("Fichier");
 
-	/** Premier sous-menu */
-	private JMenuItem item1_1 = new JMenuItem("Jouer");
-
-	/** Troisième sous-menu */
-	private JMenuItem item1_2 = new JMenuItem("Quitter");
-
-	/** Premier menu principal : Score */
-	private JMenu menu2 = new JMenu("Score(s)");
-
-	/** Premier sous-menu */
-	private JMenuItem item2_1 = new JMenuItem("Historique des scores");
+	private JMenuItem sousMenuQuitter = new JMenuItem("Quitter");
 	
-	/** Deuxième menu principal : Edition */
-	private JMenu menu3 = new JMenu("Aide");
+	private JMenu menu2 = new JMenu("?");
 
-	/** Premier sous-menu de Actions disponibles */
-	private JMenuItem item3_1 = new JMenuItem("Règles du jeu");
-
-	/** Deuxième sous-menu de Actions disponibles */
-	private JMenuItem item3_2 = new JMenuItem("Version");
-
-	/** Troisième menu principal : A propos */
-	private JMenuItem item3_3 = new JMenuItem("A propos de");
+	private JMenuItem sousMenuAPropos = new JMenuItem("A propos de");
 	
-	/** Un controleur. */
-	private ControleurGraphique unControleur;
+	private ControleurGraphique controleurGraphique;
 	
-	/** Modélisation de la fenêtre graphique. */
 	public VueGraphique()
 	{
-		this.unControleur = new ControleurGraphique();
+		this.controleurGraphique = new ControleurGraphique();
 		
 		this.setTitle("Morpion");
-		this.setSize(400, 400);
+		this.setSize(600, 600);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		// Ajout des actions possibles dans le menu "Partie"
-		this.menu1.add(this.item1_1);
-		this.menu1.addSeparator();
-		this.menu1.add(this.item1_2);
-
-		// Ajout des actions possibles dans le menu "Historique des scores"
-		this.menu2.add(this.item2_1);
+		// Actions possibles dans le menu "Fichier"
+		this.menu1.add(this.sousMenuQuitter);
 		
-		// Ajout des actions possibles dans le menu "Aide"
-		this.menu3.add(this.item3_1);
-		this.menu3.addSeparator();
-		this.menu3.add(this.item3_2);
-		this.menu3.addSeparator();
-		this.menu3.add(this.item3_3);
+		// Actions possibles dans le menu "?"
+		this.menu2.add(this.sousMenuAPropos);
 
-		// On ajoute les événements relatifs aux différents boutons
-		this.item1_1.addActionListener(new BoutonJouer());
-		this.item1_2.addActionListener(new BoutonQuitter());
-		this.item2_1.addActionListener(new BoutonHistoriqueDesScores());
-		this.item3_1.addActionListener(new BoutonReglesDuJeu());
-		this.item3_2.addActionListener(new BoutonVersion());
-		this.item3_3.addActionListener(new BoutonAProposDe());
+		// Ajout des �couteurs li�s aux diff�rents boutons
+		this.sousMenuQuitter.addActionListener(new BoutonQuitter());
+		this.sousMenuAPropos.addActionListener(new BoutonAProposDe());
 
-		// On insère tous les menus dans la le menuBar
-		this.barreDeMenu.add(this.menu1);
-		this.barreDeMenu.add(this.menu2);
-		this.barreDeMenu.add(this.menu3);
+		// menuBar principal
+		this.menuPrincipal.add(this.menu1);
+		this.menuPrincipal.add(this.menu2);
 
-		// On l'ajoute à la fenêtre
-		this.setJMenuBar(this.barreDeMenu);
+		// Ajout du menu principal � la fen�tre
+		this.setJMenuBar(this.menuPrincipal);
 		
-		unTableau.setLayout(new GridLayout(3,3));
-		unTableau.add(new Case(".",1,1));
-		unTableau.add(new Case(".",1,2));
-		unTableau.add(new Case(".",1,3));
-		unTableau.add(new Case(".",2,1));
-		unTableau.add(new Case(".",2,2));
-		unTableau.add(new Case(".",2,3));
-		unTableau.add(new Case(".",3,1));
-		unTableau.add(new Case(".",3,2));
-		unTableau.add(new Case(".",1,1));
+		tabBouton.setLayout(new GridLayout(3,3));
+		tabBouton.add(new Case(" ",1,1));
+		tabBouton.add(new Case(" ",1,2));
+		tabBouton.add(new Case(" ",1,3));
+		tabBouton.add(new Case(" ",2,1));
+		tabBouton.add(new Case(" ",2,2));
+		tabBouton.add(new Case(" ",2,3));
+		tabBouton.add(new Case(" ",3,1));
+		tabBouton.add(new Case(" ",3,2));
+		tabBouton.add(new Case(" ",1,1));
 		
-		unTableau.setBackground(Color.WHITE);
-		this.setContentPane(unTableau);
+		tabBouton.setBackground(Color.GRAY);
+		this.setContentPane(tabBouton);
 		this.setVisible(true);
 	}
 }

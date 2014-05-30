@@ -1,13 +1,10 @@
 package fr.iutvalence.java.morpion;
 
-import fr.iutvalence.java.morpion.controleurs.ControleurConsole;
-//import fr.iutvalence.java.morpion.vues.graphique.VueGraphique;
+import javax.swing.SwingUtilities;
 
-/** Permet d'executer l'application.
- * 
- * @author DELORME Loïc & BASSON Julien
- * @version 1.5
- */
+import fr.iutvalence.java.morpion.vues.graphique.VueGraphique;
+
+
 public class Morpion
 {
 
@@ -17,12 +14,15 @@ public class Morpion
 	 *            args. */
 	public static void main(String[] args)
 	{
-		if ((args.length > 0) && args[0].equals("--gui"))
+		
+		SwingUtilities.invokeLater((Runnable) new VueGraphique());
+		
+		/*if ((args.length > 0) && args[0].equals("--gui"))
 		{
 			/* Attention : l'interface graphique n'est pas encore aboutie. */
 			//new VueGraphique();
 		}
-		else
+		/*else
 		{
 			ControleurConsole unControleurConsole;
 			boolean choixVue = false;
@@ -36,5 +36,5 @@ public class Morpion
 			}
 			while (unControleurConsole.nouvellePartie());
 		}
-	}
+	}*/
 }
